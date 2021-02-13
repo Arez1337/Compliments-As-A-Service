@@ -24,7 +24,7 @@ except Exception as e:
 @route("/")
 def indexPage():
     """"
-    "This is where we can serve a generic page to a web browser explaining how to use the Compliment API", Its Compliments As A Service all the way down!
+    This is where we can serve a generic page to a web browser explaining how to use the Compliment API", Its Compliments As A Service all the way down!
     """
     return("Welcome to the Compliments As A Service API. Simply make a empty GET request to /compliment/generic/ to get a compliment returned as a string!")
 
