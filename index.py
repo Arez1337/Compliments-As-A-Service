@@ -1,58 +1,50 @@
 from bottle import route, run, error
-import random
+import random, os, json, sys
 
-# Global Variables",
-# Literally the devil",
-compliments = [
-"Your smile is contagious",
-"I bet you make babies smile",
-"You have the best laugh",
-"You light up the room",
-"You have a great sense of humor",
-"If cartoon bluebirds were real, a couple of 'em would be sitting on your shoulders singing right now",
-"You're like sunshine on a rainy day",
-"You bring out the best in other people",
-"I bet you sweat glitter",
-"Colors seem brighter when you're around",
-"You're more fun than a ball pit filled with candy",
-"Jokes are funnier when you tell them",
-"You always know how to find that silver lining",
-"You're a candle in the darkness",
-"Being around you is like a happy little vacation",
-"You're more fun than bubble wrap",
-"You're like a breath of fresh air",
-"You're someone's reason to smile",
-"How do you keep being so funny and making everyone laugh?"
-]
+# Global Variables
+# Literally the devil
+compliments = []
 
-@route('/app/<myid:int>/')
-def provide(myid):
-    return "Object with id {} returned".format(myid)
+try:
+    complimentFile = open("compliments.txt", "r")
+
+    for line in complimentFile:
+        # Clean up the text from the compliments file
+        line.strip()
+        line.rstrip()
+
+        # Add it to the global Compliments
+        compliments.append(line)
+
+except Exception as e:
+    print("Something went wrong!")
+    print(f"{e}")
+
 
 @route("/")
 def indexPage():
     """"
     "This is where we can serve a generic page to a web browser explaining how to use the Compliment API", Its Compliments As A Service all the way down!
     """
-
-    return("test")
+    return("Welcome to the Compliments As A Service API. Simply make a empty GET request to /compliment/generic/ to get a compliment returned as a string!")
 
 @route('/compliment/<type>')
 def provide(type):
+    # Generic compliments.
     if type == "generic":
         return random.choice(compliments)
+    # We will add compliment types all the time
 
-    elif type == "mytype":
-        return ""
-
+# Self Explaintory
 @error(404)
 def error404(error):
     return("You're lost mate!: Bottle Error: {}".format(error))
 
+# Self Explaintory
 @error(500)
 def error500(error):
-    return("You're lost mate!: Bottle Error: {}".format(error))
+    return("You've upset Bottle male!: Bottle Error: {}".format(error))
 
 run(host='localhost', port=8080, debug=True, reloader=True)
 
-print("Goodbye")
+print("Goodbye, friend...")
