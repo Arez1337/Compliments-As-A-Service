@@ -1,4 +1,4 @@
-from bottle import route, run, error
+from bottle import route, run, error, template
 import random, os, json, sys
 
 # Global Variables
@@ -23,9 +23,14 @@ except Exception as e:
     print("Something went wrong!")
     print(f"{e}")
 
+def getRandomCompliment():
+    compliment = random.choice(compliments)
+    compliment.rstrip()
+    compliment.strip()
+    return compliment
 
 @route("/")
-def indexPage():
+def provideIndexPage():
     """"
     This is where we can serve a generic page to a web browser explaining how to use the Compliment API",
     Its Compliments As A Service all the way down!
@@ -34,13 +39,17 @@ def indexPage():
 
 @route("/compliment/")
 @route("/compliment")
-def provide():
-    return random.choice(compliments)
+def provideCompliment():
+    return getRandomCompliment()
 
 @route("/jsoncompliment/")
 @route("/jsoncompliment")
-def provideJson():
-    return json.dumps({"compliment" : random.choice(compliments).strip().rstrip()})
+def provideJSONCompliment():
+    return json.dumps({"compliment" : getRandomCompliment()})
+
+@route("/templatetest")
+def templateTest():
+    return template("index.tpl", title="Compliments As A Service", compliment=getRandomCompliment())
 
 # Self Explaintory
 @error(404)
@@ -52,6 +61,6 @@ def error404(error):
 def error500(error):
     return("You've upset Bottle male!: Bottle Error: {}".format(error))
 
-run(host="localhost", port=8080, reloader=True)
+run(host="localhost", port=8080, reloader=True, debug=True)
 
 print("Goodbye, friend...")
