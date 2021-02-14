@@ -1,4 +1,4 @@
-from bottle import route, run, error, CherryPyServer
+from bottle import route, run, error
 import random, os, json, sys
 
 # Global Variables
@@ -45,6 +45,6 @@ def error404(error):
 def error500(error):
     return("You've upset Bottle male!: Bottle Error: {}".format(error))
 
-run(host="localhost", port=8080, reloader=True, server="CherryPyServer")
+run(host="localhost", port=8080, reloader=True)
 
 print("Goodbye, friend...")
