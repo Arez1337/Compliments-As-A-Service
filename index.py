@@ -18,7 +18,7 @@ try:
         compliments.append(line)
 
     complimentFile.close()
-    
+
 except Exception as e:
     print("Something went wrong!")
     print(f"{e}")
@@ -32,10 +32,15 @@ def indexPage():
     """
     return("Welcome to the Compliments As A Service API. Simply make a empty GET request to /compliment/ to get a compliment returned as a string!")
 
-@route('/compliment/')
-@route('/compliment')
+@route("/compliment/")
+@route("/compliment")
 def provide():
     return random.choice(compliments)
+
+@route("/jsoncompliment/")
+@route("/jsoncompliment")
+def provideJson():
+    return json.dumps({"compliment" : random.choice(compliments).strip().rstrip()})
 
 # Self Explaintory
 @error(404)
