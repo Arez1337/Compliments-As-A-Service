@@ -5,6 +5,7 @@ import random, os, json, sys
 # Literally the devil
 compliments = []
 
+# Lets load all the compliments in a way that we really should clean up.
 try:
     complimentFile = open("compliments.txt", "r")
 
@@ -16,6 +17,8 @@ try:
         # Add it to the global Compliments
         compliments.append(line)
 
+    complimentFile.close()
+    
 except Exception as e:
     print("Something went wrong!")
     print(f"{e}")
@@ -24,16 +27,15 @@ except Exception as e:
 @route("/")
 def indexPage():
     """"
-    This is where we can serve a generic page to a web browser explaining how to use the Compliment API", Its Compliments As A Service all the way down!
+    This is where we can serve a generic page to a web browser explaining how to use the Compliment API",
+    Its Compliments As A Service all the way down!
     """
-    return("Welcome to the Compliments As A Service API. Simply make a empty GET request to /compliment/generic/ to get a compliment returned as a string!")
+    return("Welcome to the Compliments As A Service API. Simply make a empty GET request to /compliment/ to get a compliment returned as a string!")
 
-@route('/compliment/<type>')
-def provide(type):
-    # Generic compliments.
-    if type == "generic":
-        return random.choice(compliments)
-    # We will add compliment types all the time
+@route('/compliment/')
+@route('/compliment')
+def provide():
+    return random.choice(compliments)
 
 # Self Explaintory
 @error(404)
