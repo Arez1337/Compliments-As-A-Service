@@ -1,9 +1,14 @@
 from bottle import route, run, error, template
-import random, os, json, sys
+from dotenv import load_dotenv
+import random, os, json, sys, requests
+
+# Get our enviroment variables
+load_dotenv()
 
 # Global Variables
 # Literally the devil
 compliments = []
+apiKey = os.getenv("APIKEY")
 
 # Lets load all the compliments in a way that we really should clean up.
 try:
@@ -22,6 +27,12 @@ try:
 except Exception as e:
     print("Something went wrong!")
     print(f"{e}")
+
+def getRandomBackground():
+    imagePayload = requests.get(f"https://api.unsplash.com/photos/?client_id={apiKey}&per_page=1")
+    decodedPayload = json.loads(imagePayload.text)
+
+    return("https://source.unsplash.com/1920x1080/?nature")
 
 def getRandomCompliment():
     compliment = random.choice(compliments)
@@ -49,7 +60,7 @@ def provideJSONCompliment():
 
 @route("/templatetest")
 def templateTest():
-    return template("index.tpl", title="Compliments As A Service", compliment=getRandomCompliment())
+    return template("index.tpl", title="Compliments As A Service", compliment=getRandomCompliment(), backgroundImage=getRandomBackground())
 
 # Self Explaintory
 @error(404)
