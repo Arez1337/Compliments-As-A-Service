@@ -128,5 +128,16 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Atom / Nanoe
+# Atom / Nano
 .save
+
+# PyEnv crap
+bin/
+include/
+lib/
+.
+
+# macOS crap
+.DS_Store
+
+
