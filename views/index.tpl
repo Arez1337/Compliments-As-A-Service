@@ -25,6 +25,7 @@ body {
     max-width: 100%;
     width: auto;
     display: inline-block;
+    max-width: fit-content;
 }
 
 </style>

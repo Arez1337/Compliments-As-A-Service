@@ -47,7 +47,7 @@ def getRandomBackground():
     #imagePayload = requests.get(f"https://api.unsplash.com/photos/?client_id={apiKey}&per_page=1")
     #decodedPayload = json.loads(imagePayload.text)
 
-    return("https://source.unsplash.com/1920x1080/?food")
+    return("https://source.unsplash.com/1920x1080/?mars")
 
 def getRandomCompliment():
     """
