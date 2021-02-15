@@ -13,3 +13,19 @@ To install simply pip3 install -r requirements.txt
 One day we'll properly do pip3 freeze > requirements.txt.
 
 Please only develop this in a venv. Please.
+
+When running this you **MUST** export the following variables or it will NOT run.
+
+port
+reloader
+debugmode
+
+For development I suggest this:
+  export port=8080
+  export reloader=True
+  export debugmode=True
+
+For deployment I suggest this:
+export port=8080
+export reloader=False
+export debugmode=False
