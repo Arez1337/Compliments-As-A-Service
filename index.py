@@ -42,11 +42,7 @@ def getRandomCompliment():
 
 @route("/")
 def provideIndexPage():
-    """"
-    This is where we can serve a generic page to a web browser explaining how to use the Compliment API",
-    Its Compliments As A Service all the way down!
-    """
-    return("Welcome to the Compliments As A Service API. Simply make a empty GET request to /compliment/ to get a compliment returned as a string!")
+    return template("index.tpl", title="Compliments As A Service", compliment=getRandomCompliment(), backgroundImage=getRandomBackground())
 
 @route("/compliment/")
 @route("/compliment")
@@ -57,10 +53,6 @@ def provideCompliment():
 @route("/jsoncompliment")
 def provideJSONCompliment():
     return json.dumps({"compliment" : getRandomCompliment()})
-
-@route("/templatetest")
-def templateTest():
-    return template("index.tpl", title="Compliments As A Service", compliment=getRandomCompliment(), backgroundImage=getRandomBackground())
 
 # Self Explaintory
 @error(404)
