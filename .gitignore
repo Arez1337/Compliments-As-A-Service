@@ -135,9 +135,7 @@ dmypy.json
 bin/
 include/
 lib/
-.
+pyvenv.cfg
 
 # macOS crap
 .DS_Store
-
-
